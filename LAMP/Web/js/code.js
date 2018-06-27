@@ -6,24 +6,37 @@ var userId = 0;
 function doRegister()
 {
 
-  var firstName = document.getElementById("firstName").value; // Retrieve username
-  var lastName = document.getElementById("lastName").value; // Retrieve password
+  console.log("Register");
+
+  var firstName = document.getElementById("newFirstName").value; // Retrieve username
+  var lastName = document.getElementById("newLastName").value; // Retrieve password
   var uName = document.getElementById("newUsername").value; // Retrieve username
   var pWord = document.getElementById("newPassword").value; // Retrieve password
   var cPass = document.getElementById("cPass").value;
-  var email = document.getElementById("email");
+  var email = document.getElementById("email").value;
 
   var invalidInput = "";
   
-    if(!pWord.replace(/\s/g, '').length || (cPass == pWord))
+     
+    if(!email.replace(/\s/g, '').length)
     {
-           invalidInput = "Invalid Password";
-           console.log("Invalid Password");
+           invalidInput = "Please enter an email address";
+           console.log("No Email");
+    } 
+    if(cPass != pWord)
+    {
+           invalidInput = "Passwords do not match";
+           console.log("Passwords do not match");
+    }
+    if(!pWord.replace(/\s/g, '').length)
+    {
+           invalidInput = "Please enter a password";
+           console.log("No Password");
     }
     if(!uName.replace(/\s/g, '').length)
     {
-           invalidInput = "Invalid Username";
-           console.log("Invalid Username");
+           invalidInput = "Please enter a username";
+           console.log("No Username");
     }  
     
     document.getElementById("accountCreationError").innerHTML = invalidInput;
@@ -57,8 +70,24 @@ function doRegister()
             document.getElementById("accountCreationError").innerHTML = "Unable to add user";
           }
   }
+} //End of Register function
+
+//Clear fields in the Create Account modal
+function clearCreateAcctModal()
+{
+        
+    firstName = document.getElementById("newFirstName").value = ""; 
+    lastName = document.getElementById("newLastName").value = ""; 
+    uName = document.getElementById("newUsername").value = ""; 
+    pWord = document.getElementById("newPassword").value = "";
+    cPass = document.getElementById("cPass").value = "";
+    email = document.getElementById("email").value = "";
+    document.getElementById("accountCreationError").innerHTML = "";
+
 }
-// Login function in the main screen
+
+
+// Login function on the main screen
 function doLogin()
 {
   userId = 0;
@@ -106,7 +135,6 @@ function doLogin()
 
 } // End of the doLogin function
 
-// View function
 
 // Begin doLogout function
 function doLogout()
