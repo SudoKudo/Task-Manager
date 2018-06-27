@@ -28,7 +28,7 @@
 	    			<li id="pageTitle" title="View-only website">Task Manager [Viewer]</li>
 	    			<!-- Use id "loggedInAs" to print "Logged in as [username]" in the top right corner -->
 	                <!-- Logout button -->
-	                <li id="logoutButton"><span id="loggedInAs">Logged in as Yoshi</span><a href="/learningphp.com"><span class="glyphicon glyphicon-log-out" style="color:white" title="Logout"></span></a></li>		                
+	                <li id="logoutButton"><span id="loggedInAs">Logged in as Yoshi</span><a href="/"><span class="glyphicon glyphicon-log-out" style="color:white" title="Logout"></span></a></li>		                
 			    </ul>
 			</div>
 
@@ -214,7 +214,7 @@
 			    </div>
 			  </div>		  
 			</div>
-			<!-- End of Forgot Password Modal -->
+			<!-- End View Task Modal -->
 
 	</body>
 </html>

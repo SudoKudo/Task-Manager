@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width = device-width, initial - scale = 1">
 
 	<!-- Links -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -11,9 +10,10 @@
 	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel= 'stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-	<!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Scripts -->  
+        <script src="js/code.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<style type="text/css">
 	body
@@ -84,21 +84,21 @@
 			      <!-- Modal content-->
 			      <div class="modal-content">
 			        <div class="modal-header" id="createAccountHeader">
-			          <button type="button" class="close" id="dismiss" data-dismiss="modal">&times;</button>
+			          <button type="button" class="close" id="dismiss" onclick='clearCreateAcctModal()' data-dismiss="modal">&times;</button>
 			          <h4 class="modal-title">Create New Account</h4>
 			        </div>
 			        <!-- Modal body content-->
 			        <div class="modal-body mx-3">
 		                <div class="column" id= "firstName">
-		                    <input type="text" class="form-control" id="firstName" placeholder= "*First Name">
+		                    <input type="text" class="form-control" id="newFirstName" placeholder= "*First Name">
 		                </div>
 
 		                <div class="column" id="lastName">
-		                	<input type="text" class="form-control" id="lastName" placeholder= "*Last Name">
+		                	<input type="text" class="form-control" id="newLastName" placeholder= "*Last Name">
 		                </div>
 
 		                <div class="form-group">
-					    	<input type="text" class="form-control" id="newUsername" placeholder= "*Username" style="width: 100%;">
+					    <input type="text" class="form-control" id="newUsername" placeholder= "*Username" style="width: 100%;">
 					    </div>
 
 					    <div class="form-group">
@@ -118,7 +118,7 @@
 		            <div class="modal-footer d-flex justify-content-center">
 		            	<!-- Use this div to print an error to the Create New Account modal -->
 		            	<div id="accountCreationError" style="float:left"></div>
-		                <button type= "submit" class="btn btn-default">Create Account</button>
+		                <button type= "submit" class="btn btn-default" id="createAccountBtn" onclick='doRegister()'>Create Account</button>
 		            </div>
 		            <!-- End Modal footer content-->
 			        </div>
@@ -145,19 +145,19 @@
 			        <!-- Modal body content-->
 			        <div class="modal-body mx-3">
 		                <div class="column" id= "firstName">
-		                    <input type="text" class="form-control" id="firstName" placeholder= "*First Name">
+		                    <input type="text" class="form-control" id="firstNameFP" placeholder= "*First Name">
 		                </div>
 
 		                <div class="column" id="lastName">
-		                	<input type="text" class="form-control" id="lastName" placeholder= "*Last Name">
+		                	<input type="text" class="form-control" id="lastNameFP" placeholder= "*Last Name">
 		                </div>
 
 		                <div class="form-group">
-					    	<input type="text" class="form-control" id="fUsername" placeholder= "*Username" style="width: 100%;">
+					    	<input type="text" class="form-control" id="UsernameFP" placeholder= "*Username" style="width: 100%;">
 					    </div>
 
 					    <div class="form-group">
-					    	<input type="email" class="form-control" id="email" placeholder="*Email" style="width: 100%;">
+					    	<input type="email" class="form-control" id="emailFP" placeholder="*Email" style="width: 100%;">
 					    </div>
 
 		            </div>
