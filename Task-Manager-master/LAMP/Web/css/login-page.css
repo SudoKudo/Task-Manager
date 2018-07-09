@@ -1,0 +1,98 @@
+#websiteTitle
+{
+	font-size:2em;
+	vertical-align: middle;
+	font-family: Courier;
+	padding-left: 15px;
+	color: white;
+}
+#loginBox
+{
+	width: 36%;
+    position: absolute;
+    top:25%;
+    bottom: 25%;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+
+}
+#username
+{
+	background: rgba(33,32,63,0);
+	border-color: rgba(33,32,63,1);
+	border-style:solid;
+	color: white;
+}
+#password
+{
+	background: rgba(33,32,63,0);
+	border-color: rgba(33,32,63,1);
+	border-style:solid;
+	color: white;
+}
+form input::-webkit-input-placeholder
+{
+ 	color:white !important;
+ 	font-size: 1.1em;
+ 	opacity: .9;
+	}
+#loginButton
+{
+	float:right;
+	width: 25%;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);	
+
+	background: rgb(34,50,83);
+	border-color: rgb(34,50,83);
+	color: white;
+
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s; 
+}
+#loginButton:hover
+{
+	background-color: rgb(43,155,156);
+    border-color: rgb(43,155,156);
+    color: white;
+}
+#loginButton:focus { outline:none; }
+#createNew
+{
+	font-size: 90%;
+	color: white;
+	padding-bottom: 0px;
+	padding-top: 15px;
+}
+#createNew:focus { outline:none; }
+#reset
+{
+	font-size: 90%;
+	color: white;
+	padding-bottom: 0px;
+	padding-top: 15px;
+}
+#reset:focus { outline: none; }
+.column
+{
+	float:left;
+	width: 50%;
+	padding-bottom: 15px;
+}
+#firstName { padding-right: 5px; }
+#lastName { padding-left: 5px; }
+#createAccountHeader
+{
+	background-image: url('simple.jpg');
+	/*background: rgb(34,50,83);*/
+	color:white;
+
+}
+#dismiss
+{
+	color: white;
+	opacity: .8;
+}
+#dismiss:focus { outline: none; }
+#dismiss:hover{ opacity: 1; }
