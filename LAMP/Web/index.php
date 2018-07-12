@@ -57,7 +57,7 @@
 			<div class="jumbotron">
 				<center>
 					<p id="websiteTitle">Task Manager</p>
-					<form action="taskmanager.php">
+					<div id= "loginForm">
 					  <div class="form-group">
 					    <input type="text" class="form-control" id="username" placeholder= "Username" style="width: 100%;">
 					  </div>
@@ -65,13 +65,13 @@
 					    <input type="password" class="form-control" id="password" placeholder="Password" style="width: 100%;">
 					  </div>
 
-					  <button type="submit" id= "loginButton" class="btn btn-default">
+					  <button type="submit" id= "loginButton" class="btn btn-default" onclick='doLogin()'>
 					  	<span style="padding-right: 6px;" class= "glyphicon glyphicon-log-in"></span>Login</button>
 
 					  <br><br>
 					  <button type="button" id= "createNew" class = "btn btn-link btn-lg" data-toggle="modal" data-target="#createAccountModal">Create New Account</button><button type="button" id= "reset" class = "btn btn-link btn-lg" data-toggle="modal" data-target="#forgotPassword">Forgot password?</button> 
 
-					</form>
+					</div>
 				</center>
 			</div>
 

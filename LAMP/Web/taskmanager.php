@@ -14,6 +14,7 @@
 	<!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/code.js"></script>
 
     <style type="text/css">
     	a:hover { text-decoration: none; cursor: pointer;}
@@ -22,13 +23,13 @@
 	<title>Task Manager</title>
 
 </head>
-	<body>
+	<body onload='displayInitial()'>
 			<div id="menubar">
 			    <ul>		
 	    			<li id="pageTitle" title="View-only website">Task Manager [Viewer]</li>
 	    			<!-- Use id "loggedInAs" to print "Logged in as [username]" in the top right corner -->
 	                <!-- Logout button -->
-	                <li id="logoutButton"><span id="loggedInAs">Logged in as Yoshi</span><a href="/"><span class="glyphicon glyphicon-log-out" style="color:white" title="Logout"></span></a></li>		                
+	                <li id="logoutButton"><span id="loggedInAs">Logged in as</span><a href="/"><span class="glyphicon glyphicon-log-out" style="color:white" title="Logout" onclick='doLogout()'></span></a></li>		                
 			    </ul>
 			</div>
 
