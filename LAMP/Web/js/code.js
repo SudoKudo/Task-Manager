@@ -1,7 +1,7 @@
 var urlBase = 'http://m4rks.site/LAMPAPI';
 var extension = "php";
 
-var userId = 0;
+userId = 0;
 
 function doRegister()
 {
@@ -90,17 +90,28 @@ function clearCreateAcctModal()
 // Login function on the main screen
 function doLogin()
 {
-  userId = 0;
 
   var uName = document.getElementById("username").value; // Takes in username from login
   var pWord = document.getElementById("password").value; // Takes in password
+  
+  if(!uName.replace(/\s/g, '').length)
+  {
+       console.log("No Username");
+       return;
+  }
+  if(!pWord.replace(/\s/g, '').length)
+  {
+       console.log("No Password");
+       return;
+  }
 
   var hashpass = sha1(pWord); // Encrypt the password
 
-  document.getElementById("loginResult").innerHTML = "";
+  //document.getElementById("loginResult").innerHTML = "";
 
   var jsonPayload = '{"uName" : "' + uName + '", "pWord" : "' + hashpass + '"}';
   var url = urlBase + '/Login.' + extension;
+  console.log(url);
 
   var xhr = new XMLHttpRequest();
 
@@ -110,41 +121,62 @@ function doLogin()
   try
   {
     xhr.send(jsonPayload);
-
+    
+    
     var jsonObject = JSON.parse( xhr.responseText );
 
     userId = jsonObject.UserID;
 
     if( userId < 1 )
     {
-      document.getElementById("loginResult").innerHTML = "Inncorrect Username/Password";
+       console.log("Incorrect Username/Password");
+      //document.getElementById("loginResult").innerHTML = "Inncorrect Username/Password";
       return;
     }
 
     //Change to match variables in API
     login = jsonObject.UserName;
-    password = jsonObject.Password;
-
+    
     // Go to home page (taskmanager.php)
+    if(typeof(Storage)!=="undefined")
+    {
+      sessionStorage.setItem('userID', userId);
+      sessionStorage.setItem('tempUsername', login);
+      window.location.href = "/taskmanager.php";
+    }
+    else
+    {
+      console.log("ERROR: Session storage not supported");
+    }
     
   }
   catch(err)
   {
-    document.getElementById("loginResult").innerHTML = "Incorrect Username/Password";
+    console.log("An error occured while attempting login");
   }
-
+  
 } // End of the doLogin function
+
+function displayInitial()
+{
+   userId = sessionStorage.getItem('userID');
+   var displayLogin = "Logged in as " + sessionStorage.getItem('tempUsername');
+   document.getElementById("loggedInAs").innerHTML = displayLogin;
+   sessionStorage.removeItem('tempUsername');
+   
+   //Get current date
+   
+   
+   //Call functions to display tasks for current day and next 4 days
+}
 
 
 // Begin doLogout function
 function doLogout()
 {
-  userId = 0;
-  uName = "";
-  pWord = "";
 
-  document.getElementById("username").value = uName;
-  document.getElementById("password").value = pWord;
+  console.log("Logging out!");
+  sessionStorage.removeItem('userID');
 
   //Go back to the login page (index.php)
 
