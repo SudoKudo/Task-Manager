@@ -2,6 +2,8 @@
 
 	$inData = getRequestInfo();
 
+	$taskId = 0;
+
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
 	if ($conn->connect_error)
 	{
