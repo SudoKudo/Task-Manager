@@ -2,7 +2,7 @@
 
 	$inData = getRequestInfo();
 
-	$taskId = 0;
+	$taskId = "";
 	$numRows = 0;
 
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
@@ -18,7 +18,8 @@
 		if ($result->num_rows > 0)
 		{
 			$row = $result->fetch_assoc();
-			$taskId = $row["TaskID"];
+			$taskId .= " ";
+			$taskId .= $row["TaskID"];
 		}
 		else
 		{
