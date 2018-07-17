@@ -16,7 +16,7 @@
 		if ($result->num_rows > 0)
 		{
 			$row = $result->fetch_assoc();
-			$taskId = $row["UserID"];
+			$taskId = $row["TaskID"];
 		}
 		else
 		{
@@ -40,7 +40,7 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"UserID":0,"FirstName":"","LastName":"","Address1":"","Address2":"","City":"","State":"","Zip":"","PhoneNumber":"","Email":"","error":"' . $err . '"}';
+		$retValue = '{"TaskID":0","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
