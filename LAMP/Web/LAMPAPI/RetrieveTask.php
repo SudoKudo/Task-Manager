@@ -3,11 +3,11 @@
 	$inData = getRequestInfo();
 
 	$id = 0;
-    $title = ;
-    $description = ;
-    $duration = ;
-    $date = ;
-    $isComplete = ;
+    $title = "";
+    $description = "";
+    $duration = "";
+    $date = "";
+    $isComplete = 0;
 
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
 	if ($conn->connect_error)
