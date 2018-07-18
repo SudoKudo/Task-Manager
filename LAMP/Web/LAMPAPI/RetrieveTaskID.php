@@ -5,6 +5,9 @@
 	$taskId = "";
 	$numRows = 0;
 
+	$date = "2018-07-17";
+	$userID = 138;
+
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
 	if ($conn->connect_error)
 	{
@@ -12,14 +15,22 @@
 	}
 	else
 	{
-		$sql = "SELECT TaskID FROM Tasks where UserID='" . $inData["UserId"] . "' and Date='" . $inData["Date"] . "'";
-		$result = $conn->query($sql);
-		$numRows = $result->num_rows;
+		$sql = "SELECT TaskID from Tasks WHERE Date LIKE '%" . $date . "%' and UserID='" . $userID . "'";
+        $result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
-			$row = $result->fetch_assoc();
-			$taskId .= " ";
-			$taskId .= $row["TaskID"];
+			while($row = $result->fetch_assoc())
+			{
+   				if( $numRows > 0 )
+                {
+                	$taskId .= " ";
+                }
+
+                $numRows++;
+                $taskId .= $row["TaskID"];
+        	}
+
+			$taskId = '"' . $taskId . '"';
 		}
 		else
 		{
@@ -43,13 +54,13 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"TaskID":0",""NumRows":0","error":"' . $err . '"}';
+		$retValue = '{"TaskID":"","NumRows":0,"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
 	function returnWithInfo( $taskId, $numRows )
 	{
-		$retValue = '{"TaskID":"' . $taskId . ',"NumRows":"' . $numRows .'","error":""}';
+		$retValue = '{"TaskID":' . $taskId . ',"NumRows":"' . $numRows .'","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 
