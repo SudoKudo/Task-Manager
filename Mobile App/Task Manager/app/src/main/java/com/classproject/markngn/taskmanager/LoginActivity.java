@@ -61,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //start main activity without login API
-                Login();
-                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                //Login();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
             }
         });
