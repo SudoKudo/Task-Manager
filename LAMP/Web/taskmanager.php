@@ -34,8 +34,8 @@
 			</div>
 
 			<!--The scroll buttons -->
-			<button type="button" id= "scrollLeft" title="Back a day" class="glyphicon glyphicon-menu-left"></button>
-			<button type="button" id= "scrollRight" title="Forward a day" class="glyphicon glyphicon-menu-right"></button>
+			<button type="button" id= "scrollLeft" title="Back a day" class="glyphicon glyphicon-menu-left" onclick='doScrollLeft()'></button>
+			<button type="button" id= "scrollRight" title="Forward a day" class="glyphicon glyphicon-menu-right" onclick='doScrollRight()'></button>
 			<!-- -->
 
 			<!--Days (Cards) -->
@@ -197,7 +197,7 @@
 			          <h4 class="modal-title" id="taskName">Task name</h4>
 			        </div>
 			        <!-- Modal body content-->
-			        <div class="modal-body mx-3">
+			        <div class="modal-body mx-3" id="detailsDisplay">
 		            	<p>Description</p>
 		            	<p>Day, date</p>
 		            	<p>Time (duration)</p>
