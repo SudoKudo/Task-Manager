@@ -20,7 +20,12 @@
         </activity>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".PasswordResetActivity" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ErrorActivity"
+            android:label="@string/title_activity_error"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

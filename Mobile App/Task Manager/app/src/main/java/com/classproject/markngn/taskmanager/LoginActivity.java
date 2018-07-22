@@ -7,14 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -27,9 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usrname, pword;
     private TextView forgetPass, newAccount;
     private Button login;
-    private RequestQueue requestQueue;
-    private static final String URL = "http:///m4rks.site/LAMPAPI/Applogin.php";
-    private StringRequest request;
+    private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
+    private String UserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,41 +58,46 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //start main activity without login API
-                //Login();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
+                Login();
             }
         });
     }
 
-    private void Login (){
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        StringRequest stringRequestrequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+    private void Login () {
+        Map<String, String> map = new HashMap<>();
+        map.put("uName", usrname.getText().toString().trim());
+        map.put("pWord", pword.getText().toString().trim());
+        JSONObject obj = new JSONObject(map);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, obj, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-
-
+            public void onResponse(JSONObject response) {
+                try {
+                    UserID = response.getString("UserID");
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                } catch (JSONException e) {
+                    ErrorActivity.message = "JSONException: " + e.getMessage();
+                    ErrorActivity.errorClass = LoginActivity.class;
+                    startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                ErrorActivity.message = " Volly error: " + error.getMessage();
+                ErrorActivity.errorClass = LoginActivity.class;
+                startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> hashMap = new HashMap<>();
+                HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("UserName", usrname.getText().toString().trim());
                 hashMap.put("Password", pword.getText().toString().trim());
                 return hashMap;
             }
         };
 
-        requestQueue.add(request);
-
+        RequestSingleton.getInstance(this).addToRequestQueue(request);
     }
-
 
 }
