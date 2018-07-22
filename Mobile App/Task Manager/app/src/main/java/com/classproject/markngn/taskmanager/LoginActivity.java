@@ -17,9 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView forgetPass, newAccount;
     private Button login;
     private RequestQueue requestQueue;
-    private static final String URL = "http:///m4rks.site/LAMPAPI/Applogin.php";
-    private StringRequest request;
+    private static String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,32 +52,43 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        ;
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //start main activity without login API
-                //Login();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                String username = usrname.getText().toString().trim();
+                String password = pword.getText().toString().trim();
+
+                if(!username.isEmpty() || !password.isEmpty()){
+                    Login(username, password);
+                }
+
+                else
+                    usrname.setError("Please enter username");
+                    pword.setError("Please enter password");
 
             }
         });
     }
 
-    private void Login (){
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+    private void Login (String username, String password){
 
-        StringRequest stringRequestrequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                if(response.trim().equals("success")){
+                    Toast.makeText(getApplicationContext(), "Successfully logged in", Toast.LENGTH_LONG).show();
+                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Failed to log in", Toast.LENGTH_LONG).show();
 
             }
         }, new Response.ErrorListener() {
-            @Override
+             @Override
             public void onErrorResponse(VolleyError error) {
-
+                 Toast.makeText(getApplicationContext(), "Error" + error.toString(), Toast.LENGTH_LONG).show();
             }
         }){
             @Override
@@ -88,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put("UserName", usrname.getText().toString().trim());
                 hashMap.put("Password", pword.getText().toString().trim());
-                return hashMap;
+                return super.getParams();
             }
         };
 
