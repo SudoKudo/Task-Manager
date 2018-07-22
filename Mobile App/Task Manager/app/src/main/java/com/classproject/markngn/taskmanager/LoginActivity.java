@@ -1,6 +1,7 @@
 package com.classproject.markngn.taskmanager;
 
 import android.content.Intent;
+import android.security.NetworkSecurityPolicy;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView forgetPass, newAccount;
     private Button login;
     private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
-    private String UserID;
+    public static String UserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         forgetPass = (TextView)findViewById(R.id.passReset);
         newAccount = (TextView)findViewById(R.id.register);
         login = (Button)findViewById(R.id.LoginBT);
+       // NetworkSecurityPolicy.getInstance().;
 
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +55,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        ;
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     private void Login () {
         Map<String, String> map = new HashMap<>();
         map.put("uName", usrname.getText().toString().trim());
-        map.put("pWord", pword.getText().toString().trim());
+        map.put("pWord", Sha1.encryptPassword(pword.getText().toString().trim()));
         JSONObject obj = new JSONObject(map);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, obj, new Response.Listener<JSONObject>() {
             @Override
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ErrorActivity.message = " Volly error: " + error.getMessage();
+                ErrorActivity.message = error.getMessage();
                 ErrorActivity.errorClass = LoginActivity.class;
                 startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
             }
