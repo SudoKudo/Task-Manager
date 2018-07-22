@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -14,7 +15,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,24 +28,20 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usrname, pword;
     private TextView forgetPass, newAccount;
     private Button login;
-<<<<<<< HEAD
-    private RequestQueue requestQueue;
     private static String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
 
-=======
-    private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
     private String UserID;
->>>>>>> 17777f5d7e4e2c679fd9ce1c79702f667efadeb2
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        usrname = (EditText)findViewById(R.id.username);
-        pword = (EditText)findViewById(R.id.password);
-        forgetPass = (TextView)findViewById(R.id.passReset);
-        newAccount = (TextView)findViewById(R.id.register);
-        login = (Button)findViewById(R.id.LoginBT);
+        usrname = (EditText) findViewById(R.id.username);
+        pword = (EditText) findViewById(R.id.password);
+        forgetPass = (TextView) findViewById(R.id.passReset);
+        newAccount = (TextView) findViewById(R.id.register);
+        login = (Button) findViewById(R.id.LoginBT);
 
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,41 +61,21 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
                 String username = usrname.getText().toString().trim();
                 String password = pword.getText().toString().trim();
 
-                if(!username.isEmpty() || !password.isEmpty()){
-                    Login(username, password);
-                }
-
-                else
+                if (!username.isEmpty() || !password.isEmpty()) {
+                    Login();
+                } else
                     usrname.setError("Please enter username");
                     pword.setError("Please enter password");
 
-=======
-                Login();
->>>>>>> 17777f5d7e4e2c679fd9ce1c79702f667efadeb2
             }
         });
     }
 
-<<<<<<< HEAD
-    private void Login (String username, String password){
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if(response.trim().equals("success")){
-                    Toast.makeText(getApplicationContext(), "Successfully logged in", Toast.LENGTH_LONG).show();
-                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-                else
-                    Toast.makeText(getApplicationContext(), "Failed to log in", Toast.LENGTH_LONG).show();
-
-=======
-    private void Login () {
+    private void Login() {
         Map<String, String> map = new HashMap<>();
         map.put("uName", usrname.getText().toString().trim());
         map.put("pWord", pword.getText().toString().trim());
@@ -110,18 +91,18 @@ public class LoginActivity extends AppCompatActivity {
                     ErrorActivity.errorClass = LoginActivity.class;
                     startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
                 }
->>>>>>> 17777f5d7e4e2c679fd9ce1c79702f667efadeb2
+
             }
         }, new Response.ErrorListener() {
-             @Override
+            @Override
             public void onErrorResponse(VolleyError error) {
-<<<<<<< HEAD
-                 Toast.makeText(getApplicationContext(), "Error" + error.toString(), Toast.LENGTH_LONG).show();
-=======
+
+                Toast.makeText(getApplicationContext(), "Error" + error.toString(), Toast.LENGTH_LONG).show();
+
                 ErrorActivity.message = " Volly error: " + error.getMessage();
                 ErrorActivity.errorClass = LoginActivity.class;
                 startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
->>>>>>> 17777f5d7e4e2c679fd9ce1c79702f667efadeb2
+
             }
         }) {
             @Override
@@ -135,5 +116,6 @@ public class LoginActivity extends AppCompatActivity {
 
         RequestSingleton.getInstance(this).addToRequestQueue(request);
     }
+
 
 }
