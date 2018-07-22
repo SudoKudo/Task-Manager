@@ -11,13 +11,13 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/task_manager_icon_mdpi" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Welcome!"
+        android:text="Welcome to the app!"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
