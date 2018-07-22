@@ -10,11 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,34 +89,33 @@ public class RegistrationActivity extends AppCompatActivity {
         return result;
     }
     private void Register(){
-        Map<String, String> map = new HashMap<>();
-        map.put("uName", Uname.getText().toString().trim());
-        map.put("pWord", Sha1.encryptPassword(Pass.getText().toString().trim()));
-        map.put("email", Email.getText().toString().trim());
-        map.put("firstname", Fname.getText().toString().trim());
-        map.put("lastName", Lname.getText().toString().trim());
-        JSONObject obj = new JSONObject(map);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, obj, new Response.Listener<JSONObject>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        ErrorActivity.message = error.getMessage();
+                        ErrorActivity.errorClass = LoginActivity.class;
+                        startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
+                    }
+                }){
             @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    LoginActivity.UserID = response.getString("UserID");
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                } catch (JSONException e) {
-                    ErrorActivity.message = "JSONException: " + e.getMessage();
-                    ErrorActivity.errorClass = LoginActivity.class;
-                    startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
-                }
+            protected Map<String, String> getParams(){
+                 Map<String,String> map = new HashMap<>();
+                map.put("uName", Uname.getText().toString().trim());
+                map.put("pWord", Sha1.encryptPassword(Pass.getText().toString().trim()));
+                map.put("email", Email.getText().toString().trim());
+                map.put("firstname", Fname.getText().toString().trim());
+                map.put("lastName", Lname.getText().toString().trim());
+
+                return map;
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                ErrorActivity.message = error.getMessage();
-                ErrorActivity.errorClass = LoginActivity.class;
-                startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
-            }
-        });
+        };
 
         RequestSingleton.getInstance(this).addToRequestQueue(request);
     }

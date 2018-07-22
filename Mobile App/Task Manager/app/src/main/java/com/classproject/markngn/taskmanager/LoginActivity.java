@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView forgetPass, newAccount;
     private Button login;
     private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
-    public static String UserID;
+    public static int UserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +72,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    UserID = response.getString("UserID");
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    String userName = response.getString("UserName");
+                    if(!userName.isEmpty()) {
+                        UserID = response.getInt("UserID");
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }else{
+                        ErrorActivity.message = "Wrong Username or Password";
+                        ErrorActivity.errorClass = LoginActivity.class;
+                        startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
+                    }
                 } catch (JSONException e) {
                     ErrorActivity.message = "JSONException: " + e.getMessage();
                     ErrorActivity.errorClass = LoginActivity.class;
