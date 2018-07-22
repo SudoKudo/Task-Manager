@@ -469,73 +469,11 @@ function doScrollLeft()
    
 }//End of doScrollLeft()
 
-
 $(document).on('show.bs.modal', '#viewTaskModal', function (e)
 {
 
   console.log("New function");
-  // do something...
-      $("a").click(function(event) {
-    
-    var taskId = event.target.id;
-    
-    console.log(taskId);
-        
-        
-    //Variable storage
-    var taskName;
-    var desc;
-    var date;
-    var startTime;
-    var duration;
-    var isComplete;
-    
-    //API call: RetrieveTaskInfo
-    var jsonPayload = '{"UserId" : "' + userId + '", "taskId" : "' + taskId + '"}';
-    var url = urlBase + '/RetrieveTaskInfo.' + extension;
-    console.log(url);
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("POST", url, false);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   
-    console.log(jsonPayload);
-
-    try
-    {
-       xhr.send(jsonPayload);
-       
-       console.log("Sent!");
-    
-       var jsonObject = JSON.parse( xhr.responseText );
-
-       console.log(jsonObject);
-       
-       taskName = jsonObject.Title;
-       desc = jsonObject.Description;
-       date = jsonObject.Date;
-       
-       //Create modal innerHTML
-       var taskNameInnerHTML = "<h2>" + taskName + "</h2>";
-       var innerHTML = "<h4>" + desc + "<\h4>" + "<h4>" + date + "<\h4>";
-       
-       //Populate modal
-       document.getElementById("taskName").innerHTML = taskNameInnerHTML;
-       document.getElementById("detailsDisplay").innerHTML = innerHTML;
-
-    }
-    catch(err)
-    {
-       console.log("Modal population error -- API");
-    }
-
-    });
-})
-
-/*
-//Display information in modal
-$(document).ready(function() {
     $("a").click(function(event) {
     
     var taskId = event.target.id;
@@ -576,10 +514,14 @@ $(document).ready(function() {
        taskName = jsonObject.Title;
        desc = jsonObject.Description;
        date = jsonObject.Date;
+       startTime = jsonObject.StartTime;
+       duration = jsonObject.Duration;
+       isComplete = jsonObject.IsComplete;
+       
        
        //Create modal innerHTML
        var taskNameInnerHTML = "<h2>" + taskName + "</h2>";
-       var innerHTML = "<h4>" + desc + "<\h4>" + "<h4>" + date + "<\h4>";
+       var innerHTML = "<h4>" + desc + "</h4>" + "<h4>Date: " + date + "</h4>" + "<h4>Time:" + startTime + " (" + duration + ")</h4>";
        
        //Populate modal
        document.getElementById("taskName").innerHTML = taskNameInnerHTML;
@@ -591,11 +533,10 @@ $(document).ready(function() {
        console.log("Modal population error -- API");
     }
 
-    //populate modal
-
     });
-});
-*/
+    
+    console.log("End of function XD");
+})
 
 // Begin doLogout function
 function doLogout()
