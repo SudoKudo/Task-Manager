@@ -29,34 +29,22 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usrname, pword;
     private TextView forgetPass, newAccount;
     private Button login;
-<<<<<<< HEAD
-    private static String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
 
-    private String UserID;
-=======
     private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
     public static int UserID;
->>>>>>> 93d716eab36e9646b1a6e536de00f1545c5bdcfd
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-<<<<<<< HEAD
-        usrname = (EditText) findViewById(R.id.username);
-        pword = (EditText) findViewById(R.id.password);
-        forgetPass = (TextView) findViewById(R.id.passReset);
-        newAccount = (TextView) findViewById(R.id.register);
-        login = (Button) findViewById(R.id.LoginBT);
-=======
         usrname = (EditText)findViewById(R.id.username);
         pword = (EditText)findViewById(R.id.password);
         forgetPass = (TextView)findViewById(R.id.passReset);
         newAccount = (TextView)findViewById(R.id.register);
         login = (Button)findViewById(R.id.LoginBT);
-       // NetworkSecurityPolicy.getInstance().;
->>>>>>> 93d716eab36e9646b1a6e536de00f1545c5bdcfd
+
 
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 93d716eab36e9646b1a6e536de00f1545c5bdcfd
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,10 +69,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (!username.isEmpty() || !password.isEmpty()) {
                     Login();
-                } else
+                } else {
                     usrname.setError("Please enter username");
                     pword.setError("Please enter password");
-
+                }
             }
         });
     }
@@ -122,14 +107,9 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-<<<<<<< HEAD
 
-                Toast.makeText(getApplicationContext(), "Error" + error.toString(), Toast.LENGTH_LONG).show();
-
-                ErrorActivity.message = " Volly error: " + error.getMessage();
-=======
                 ErrorActivity.message = error.getMessage();
->>>>>>> 93d716eab36e9646b1a6e536de00f1545c5bdcfd
+
                 ErrorActivity.errorClass = LoginActivity.class;
                 startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
 

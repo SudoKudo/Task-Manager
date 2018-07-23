@@ -75,20 +75,23 @@ public class RegistrationActivity extends AppCompatActivity {
          String veripass = Cpass.getText().toString();
          String email = Email.getText().toString();
 
-         if(first.isEmpty() && last.isEmpty() && usrname.isEmpty() && pass.isEmpty() && veripass.isEmpty() &&
-                 email.isEmpty()){
+         if (first.isEmpty() || last.isEmpty() || usrname.isEmpty() || pass.isEmpty() || veripass.isEmpty() ||
+                     email.isEmpty()) {
              Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
          }
 
-         if (!(pass.matches(veripass))) {
+         else if (!(pass.matches(veripass))) {
              Toast.makeText(this, "Make sure you enter the same password.", Toast.LENGTH_SHORT).show();
              Cpass.setError("Password don't match!");
          }
+
          else
              result = true;
 
         return result;
     }
+
+
     private void Register(){
         Map<String,String> map = new HashMap<>();
         map.put("uName", Uname.getText().toString().trim());
