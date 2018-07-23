@@ -1,6 +1,7 @@
 package com.classproject.markngn.taskmanager;
 
 import android.content.Intent;
+import android.security.NetworkSecurityPolicy;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,20 +29,34 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usrname, pword;
     private TextView forgetPass, newAccount;
     private Button login;
+<<<<<<< HEAD
     private static String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
 
     private String UserID;
+=======
+    private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
+    public static int UserID;
+>>>>>>> 93d716eab36e9646b1a6e536de00f1545c5bdcfd
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+<<<<<<< HEAD
         usrname = (EditText) findViewById(R.id.username);
         pword = (EditText) findViewById(R.id.password);
         forgetPass = (TextView) findViewById(R.id.passReset);
         newAccount = (TextView) findViewById(R.id.register);
         login = (Button) findViewById(R.id.LoginBT);
+=======
+        usrname = (EditText)findViewById(R.id.username);
+        pword = (EditText)findViewById(R.id.password);
+        forgetPass = (TextView)findViewById(R.id.passReset);
+        newAccount = (TextView)findViewById(R.id.register);
+        login = (Button)findViewById(R.id.LoginBT);
+       // NetworkSecurityPolicy.getInstance().;
+>>>>>>> 93d716eab36e9646b1a6e536de00f1545c5bdcfd
 
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +72,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 93d716eab36e9646b1a6e536de00f1545c5bdcfd
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,14 +96,22 @@ public class LoginActivity extends AppCompatActivity {
     private void Login() {
         Map<String, String> map = new HashMap<>();
         map.put("uName", usrname.getText().toString().trim());
-        map.put("pWord", pword.getText().toString().trim());
+        map.put("pWord", Sha1.encryptPassword(pword.getText().toString().trim()));
         JSONObject obj = new JSONObject(map);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, obj, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    UserID = response.getString("UserID");
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    String userName = response.getString("UserName");
+                    if(!userName.isEmpty()) {
+                        UserID = response.getInt("UserID");
+                        System.err.println("UserID = " + UserID);
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }else{
+                        ErrorActivity.message = "Wrong Username or Password";
+                        ErrorActivity.errorClass = LoginActivity.class;
+                        startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
+                    }
                 } catch (JSONException e) {
                     ErrorActivity.message = "JSONException: " + e.getMessage();
                     ErrorActivity.errorClass = LoginActivity.class;
@@ -96,10 +122,14 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+<<<<<<< HEAD
 
                 Toast.makeText(getApplicationContext(), "Error" + error.toString(), Toast.LENGTH_LONG).show();
 
                 ErrorActivity.message = " Volly error: " + error.getMessage();
+=======
+                ErrorActivity.message = error.getMessage();
+>>>>>>> 93d716eab36e9646b1a6e536de00f1545c5bdcfd
                 ErrorActivity.errorClass = LoginActivity.class;
                 startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
 

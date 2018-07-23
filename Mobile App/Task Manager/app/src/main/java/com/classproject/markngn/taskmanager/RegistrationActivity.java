@@ -1,6 +1,7 @@
 package com.classproject.markngn.taskmanager;
 
 import android.content.Intent;
+import android.security.NetworkSecurityPolicy;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,24 +10,38 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText Fname, Lname, Uname, Pass, Cpass, Email;
     private Button regButton;
     private TextView goBack;
+    private static final String URL = "http://m4rks.site/LAMPAPI/Register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
+        System.err.println("cleartext = " + NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted());
         UIview();
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (validateInput()) {
-                    //send input to database
+                    Register();
                 }
             }
         });
@@ -73,5 +88,32 @@ public class RegistrationActivity extends AppCompatActivity {
              result = true;
 
         return result;
+    }
+    private void Register(){
+        Map<String,String> map = new HashMap<>();
+        map.put("uName", Uname.getText().toString().trim());
+        map.put("pWord", Sha1.encryptPassword(Pass.getText().toString().trim()));
+        map.put("email", Email.getText().toString().trim());
+        map.put("firstName", Fname.getText().toString().trim());
+        map.put("lastName", Lname.getText().toString().trim());
+        JSONObject obj = new JSONObject(map);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, obj,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.err.println("response = " + response.toString());
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        ErrorActivity.message = error.getMessage();
+                        ErrorActivity.errorClass = LoginActivity.class;
+                        startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
+                    }
+                });
+
+        RequestSingleton.getInstance(this).addToRequestQueue(request);
     }
 }
