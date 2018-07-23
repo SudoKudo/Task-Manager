@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                     String userName = response.getString("UserName");
                     if(!userName.isEmpty()) {
                         UserID = response.getInt("UserID");
+                        System.err.println("UserID = " + UserID);
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }else{
                         ErrorActivity.message = "Wrong Username or Password";
