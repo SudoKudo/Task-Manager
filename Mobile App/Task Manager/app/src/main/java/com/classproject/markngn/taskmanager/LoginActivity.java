@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         forgetPass = (TextView)findViewById(R.id.passReset);
         newAccount = (TextView)findViewById(R.id.register);
         login = (Button)findViewById(R.id.LoginBT);
-       // NetworkSecurityPolicy.getInstance().;
 
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
