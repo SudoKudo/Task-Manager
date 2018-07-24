@@ -9,7 +9,6 @@ var day = [' ',' ',' ',' ',' '];
 var date = [' ',' ',' ',' ',' '];
 var fullDate = [];
 
-
 function doRegister()
 {
 
@@ -67,7 +66,8 @@ function doRegister()
             {
               if (this.readyState == 4 && this.status == 200)
               {
-                document.getElementById("accountCreationError").innerHTML = "User has been added!";
+                clearCreateAcctModal();
+                document.getElementById("accountCreationError").innerHTML = "User has been added!";       
               }
             };
             xhr.send(jsonPayload);
@@ -164,42 +164,7 @@ function doLogin()
     
 } // End of the doLogin function
 
-function doTest()
-{      
-      //Reformat full Date to format that database will recognize
-      var curDate = new Date();
-      curDate = formatDate(curDate);
-      console.log(curDate);
-          
-      // Convert to json string to pass to API
-      var jsonPayload = '{"UserId" : "' + userId + '", "Date" : "' + curDate + '"}';
-      var url = urlBase + '/RetrieveTaskID.' + extension;
-      console.log(url);
-
-      var xhr = new XMLHttpRequest();
-
-      xhr.open("POST", url, false);
-      xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  
-      console.log(jsonPayload);
-
-      try
-      {
-         xhr.send(jsonPayload);
-         
-         console.log("Sent!");
-    
-         var jsonObject = JSON.parse( xhr.responseText );
-
-         console.log(jsonObject);
-    
-      }
-      catch(err)
-      {
-         console.log("Retrieve Task error");
-      }
-}//End of doTest()
-
+//Format date for database
 function formatDate(date) 
 {
     var d = new Date(date),
@@ -214,7 +179,7 @@ function formatDate(date)
 }
 
 function displayInitial()
-{
+{   
     userId = sessionStorage.getItem('userID');
     var displayLogin = "Logged in as " + sessionStorage.getItem('tempUsername');
     document.getElementById("loggedInAs").innerHTML = displayLogin;
@@ -223,6 +188,7 @@ function displayInitial()
     //Get current date
     fullDate[0] = new Date();
     displayDate(fullDate[0], 0);
+    curMonthL = fullDate[0].getMonth();
     
     fullDate[1] = new Date();
     fullDate[1].setDate(fullDate[0].getDate()+1);
@@ -239,6 +205,7 @@ function displayInitial()
     fullDate[4] = new Date();
     fullDate[4].setDate(fullDate[0].getDate()+4);
     displayDate(fullDate[4], 4);
+    curMonthR = fullDate[4].getMonth();
     
     updateDaysAndDates();
       
@@ -282,14 +249,11 @@ function doRetrieveDay(fDate, position)
     //API call: RetrieveTaskID
     var jsonPayload = '{"UserId" : "' + userId + '", "Date" : "' + fDate + '"}';
     var url = urlBase + '/RetrieveTaskID.' + extension;
-    console.log(url);
 
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", url, false);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  
-    console.log(jsonPayload);
 
     try
     {
@@ -297,13 +261,10 @@ function doRetrieveDay(fDate, position)
     
     
        var jsonObject = JSON.parse( xhr.responseText );
-
-       console.log(jsonObject);
     
     }
     catch(err)
     {
-       console.log("No tasks");
        fullInnerHTML = "<br><center>No tasks</center>";
     }
     
@@ -376,30 +337,22 @@ function generateInnerHTML(taskId)
     //API call: RetrieveTaskInfo
     var jsonPayload = '{"UserId" : "' + userId + '", "taskId" : "' + taskId + '"}';
     var url = urlBase + '/RetrieveTaskInfo.' + extension;
-    console.log(url);
 
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", url, false);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  
-    console.log(jsonPayload);
 
     try
     {
        xhr.send(jsonPayload);
-       
-       console.log("Sent!");
     
        var jsonObject = JSON.parse( xhr.responseText );
-
-       console.log(jsonObject);
        
        taskName = jsonObject.Title;
        
-       var innerHTMLstring = "<a data-toggle=\"modal\" data-target=\"#viewTaskModal\" id=\"" + taskId + "\"><li class=\"list-group-item\" id=\"" + taskId + "\">" + taskName + "</li></a>";
-       console.log(innerHTMLstring);
-    
+       var innerHTMLstring = "<a data-target=\"#viewTaskModal\" id=\"" + taskId + "\"><li class=\"list-group-item\" id=\"" + taskId + "\">" + taskName + "</li></a>";
+            //data-toggle=\"modal\" 
        return innerHTMLstring;
     
     }
@@ -413,7 +366,6 @@ function generateInnerHTML(taskId)
 //Scroll right - display day after day in box 5 [index 4]
 function doScrollRight()
 {
-
    for(var i = 0; i <=3; i++)
    {
       innerHTMLforTasks[i] = innerHTMLforTasks[i+1];
@@ -424,15 +376,13 @@ function doScrollRight()
    
    //Get date to be added
    fullDate[4] = new Date();
+   fullDate[4].setMonth(fullDate[3].getMonth());
    fullDate[4].setDate(fullDate[3].getDate()+1);
+
    displayDate(fullDate[4],4);
    
    //Retrieve data for new day
    doRetrieveDay(fullDate[4], 4);
-   
-   console.log(day);
-   console.log(date);
-   console.log(fullDate);
    
    //Update
    updateDaysAndDates();
@@ -453,15 +403,13 @@ function doScrollLeft()
    
    //Get date to be added
    fullDate[0] = new Date();
+   fullDate[0].setMonth(fullDate[1].getMonth());
    fullDate[0].setDate(fullDate[1].getDate()-1);
-   displayDate(fullDate[0], 0);
+   
+   displayDate(fullDate[0],0);
    
    //Retrieve data for new day
    doRetrieveDay(fullDate[0], 0);
-   
-   console.log(day);
-   console.log(date);
-   console.log(fullDate);
    
    //Update
    updateDaysAndDates();
@@ -469,16 +417,11 @@ function doScrollLeft()
    
 }//End of doScrollLeft()
 
-$(document).on('show.bs.modal', '#viewTaskModal', function (e)
+//Triggers when card (task) is clicked
+$(document).on('click','a[data-target="#viewTaskModal"]', function(e) 
 {
 
-  console.log("New function");
-  
-    $("a").click(function(event) {
-    
-    var taskId = event.target.id;
-    
-    console.log(taskId);
+    var taskId = e.target.id;
         
         
     //Variable storage
@@ -492,24 +435,19 @@ $(document).on('show.bs.modal', '#viewTaskModal', function (e)
     //API call: RetrieveTaskInfo
     var jsonPayload = '{"UserId" : "' + userId + '", "taskId" : "' + taskId + '"}';
     var url = urlBase + '/RetrieveTaskInfo.' + extension;
-    console.log(url);
 
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", url, false);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  
-    console.log(jsonPayload);
 
     try
     {
        xhr.send(jsonPayload);
        
-       console.log("Sent!");
     
        var jsonObject = JSON.parse( xhr.responseText );
 
-       console.log(jsonObject);
        
        taskName = jsonObject.Title;
        desc = jsonObject.Description;
@@ -518,25 +456,125 @@ $(document).on('show.bs.modal', '#viewTaskModal', function (e)
        duration = jsonObject.Duration;
        isComplete = jsonObject.IsComplete;
        
+       //Convert to standard time and date
+       startTime = convertTime(startTime);
+       date = modalDate(date);
+       duration = convertDuration(duration);
+       
        
        //Create modal innerHTML
        var taskNameInnerHTML = "<h2>" + taskName + "</h2>";
-       var innerHTML = "<h4>" + desc + "</h4>" + "<h4>Date: " + date + "</h4>" + "<h4>Time:" + startTime + " (" + duration + ")</h4>";
+       var innerHTML = "<h4>" + desc + "</h4>" + "<h5>Date: " + date + "</h5>" + "<h5>Time: " + startTime + " (" + duration + ")</h5>";
        
        //Populate modal
        document.getElementById("taskName").innerHTML = taskNameInnerHTML;
        document.getElementById("detailsDisplay").innerHTML = innerHTML;
+       
+       $("#viewTaskModal").modal("show");
+       
+
 
     }
     catch(err)
     {
        console.log("Modal population error -- API");
     }
-
-    });
     
-    console.log("End of function XD");
-})
+    $("#viewTaskModal").modal("show");
+        
+}) //End of open task
+
+//Convert military time to standard
+function convertTime(time)
+{
+
+   var hours;
+   var minutes;
+
+   //Get hours and minutes
+   if(time.length == 4)
+   {
+      hours = time.substring(0, 2);
+      minutes = time.substring(2);
+   }
+   else if(time.length == 3)
+   {
+      hours = time.substring(0,1);
+      minutes = time.substring(1);
+   }
+   
+
+   var timeValue;
+
+   if (hours > 0 && hours <= 12)
+   {
+     timeValue= "" + hours;
+   } else if (hours > 12)
+   {
+     timeValue= "" + (hours - 12);
+   } else if (hours == 0)
+   {
+     timeValue= "12";
+   }
+ 
+   //Minutes
+   timeValue += (minutes > 0 && minutes < 10) ? ":0" + minutes : ":" + minutes;
+   //AM or PM
+   timeValue += (hours >= 12) ? " P.M." : " A.M.";  
+   
+   return timeValue;
+}//End of convertTime()
+
+
+//Convert date from database for display in modal
+function modalDate(m)
+{
+  var year = m.substring(0,4);
+  var month = m.substring(6,7);
+  var day = m.substring(8);
+  months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+  
+  var returnString = months[month-1] + " " + day + ", " + year;
+  return returnString;
+} //End of modalDate()
+
+//Convert task duration for display in modal
+function convertDuration(dur)
+{
+  var hours = 0;
+  var minutes = 0;
+  
+  while(dur >= 60)
+  {
+    hours++;
+    dur -= 60;
+  }
+  
+  minutes = dur;
+  var returnString = "";
+  
+  //Hour(s)
+  if(hours == 1)
+  {
+    returnString = hours + " hour";
+  }
+  else if(hours > 1)
+  {
+    returnString = hours + " hours";
+  }
+    
+  //Minutes
+  if(minutes > 0)
+  {
+    if(hours > 0)
+      returnString = returnString + ", ";
+      
+    returnString = returnString + minutes + " minutes";
+  }
+    
+  return returnString;
+  
+}
 
 // Begin doLogout function
 function doLogout()

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -15,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -27,8 +29,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usrname, pword;
     private TextView forgetPass, newAccount;
     private Button login;
+
     private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
     public static int UserID;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,10 @@ public class LoginActivity extends AppCompatActivity {
         forgetPass = (TextView)findViewById(R.id.passReset);
         newAccount = (TextView)findViewById(R.id.register);
         login = (Button)findViewById(R.id.LoginBT);
+<<<<<<< HEAD
+=======
+
+>>>>>>> baabf7052de7a01e9c2025de9a0a9987305975ad
 
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,15 +63,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Login();
+                String username = usrname.getText().toString().trim();
+                String password = pword.getText().toString().trim();
+
+                if (!username.isEmpty() || !password.isEmpty()) {
+                    Login();
+                } else {
+                    usrname.setError("Please enter username");
+                    pword.setError("Please enter password");
+                }
             }
         });
     }
 
-    private void Login () {
+
+    private void Login() {
         Map<String, String> map = new HashMap<>();
         map.put("uName", usrname.getText().toString().trim());
         map.put("pWord", Sha1.encryptPassword(pword.getText().toString().trim()));
@@ -86,13 +105,17 @@ public class LoginActivity extends AppCompatActivity {
                     ErrorActivity.errorClass = LoginActivity.class;
                     startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 ErrorActivity.message = error.getMessage();
+
                 ErrorActivity.errorClass = LoginActivity.class;
                 startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
+
             }
         }) {
             @Override
@@ -100,11 +123,12 @@ public class LoginActivity extends AppCompatActivity {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("UserName", usrname.getText().toString().trim());
                 hashMap.put("Password", pword.getText().toString().trim());
-                return hashMap;
+                return super.getParams();
             }
         };
 
         RequestSingleton.getInstance(this).addToRequestQueue(request);
     }
+
 
 }
