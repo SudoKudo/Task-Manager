@@ -37,4 +37,15 @@ public class PasswordResetActivity extends AppCompatActivity {
             }
         });
     }
+
+    private  void PassReset(){
+
+
+    }
+
+    private void SendLink(){
+
+
+    }
+
 }
