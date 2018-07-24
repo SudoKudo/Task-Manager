@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText usrname, pword;
-    private TextView forgetPass, newAccount;
+    private TextView  newAccount;
     private Button login;
 
     private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
@@ -41,16 +41,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         usrname = (EditText)findViewById(R.id.username);
         pword = (EditText)findViewById(R.id.password);
-        forgetPass = (TextView)findViewById(R.id.passReset);
         newAccount = (TextView)findViewById(R.id.register);
         login = (Button)findViewById(R.id.LoginBT);
 
-        forgetPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, PasswordResetActivity.class));
-            }
-        });
 
         newAccount.setOnClickListener(new View.OnClickListener() {
             @Override
