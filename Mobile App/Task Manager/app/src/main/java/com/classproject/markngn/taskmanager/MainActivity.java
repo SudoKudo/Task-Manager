@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 try {
                     for(int i = 0; i<response.length();i++) {
-                        System.err.println(response.get(i).toString());
+                        System.out.println(response.get(i).toString());
                     }
 
                 } catch (JSONException e) {
