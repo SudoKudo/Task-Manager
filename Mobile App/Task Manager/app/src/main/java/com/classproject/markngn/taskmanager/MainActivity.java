@@ -15,29 +15,19 @@ import android.view.MenuItem;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.Map;
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.classproject.markngn.taskmanager.LoginActivity.UserID;
 
@@ -47,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawerLayout;
     private static final String URL = "http://m4rks.site/LAMPAPI/RetrieveTaskID.php";
-    //private static final String URL2 = "http://m4rks.site/LAMPAPI/RetrieveTaskID.php";
+    private static final String URL2 = "http://m4rks.site/LAMPAPI/RetrieveTaskInfo.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +63,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         try {
-            GrabTasksIDs(Fdate());
+            GrabTasksIDs(FDate(2));
         } catch (JSONException e) {
-            e.printStackTrace();
+            System.err.println(e.toString());
+            ErrorActivity.message = "JSONException: " + e.getMessage();
+            ErrorActivity.errorClass = LoginActivity.class;
+            startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
         }
+        RetrieveTaskInfo(26);
 
     }
 
@@ -112,29 +106,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public String FDate(int daysToAdd){
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        final SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-DD");
+        final SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
         cal.add(Calendar.DATE, daysToAdd);
         return formatedDate.format(cal.getTime());
     }
-    public String Fdate(){
+    public String FDate(){
         Date now = new Date();
-        final SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-DD");
+        final SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
         return formatedDate.format(now);
     }
-    public void GrabTasksIDs(String fdate) throws JSONException {
+    //in progress connects and returns data from server
+    public void GrabTasksIDs(String fDate) throws JSONException {
+        final String testDate = fDate;
         Map<String, String> map = new HashMap<>();
-        map.put("UserID", "" + UserID);
-        map.put("Date", fdate);
-        JSONArray obj = new JSONArray(map);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, obj, new Response.Listener<JSONArray>() {
+        map.put("UserId", "" + UserID);
+        map.put("Date", fDate);;
+        JSONObject obj = new JSONObject(map);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, obj, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(JSONObject response) {
                 try {
-                    for(int i = 0; i<response.length();i++) {
-                        System.out.println(response.get(i).toString());
+                        System.out.println(response.get("TaskID").toString());
+                    System.err.println("Get taskID = " + response.getString("TaskID") + " UserID = " + UserID + " date = " + testDate);
+                    for(int i = 0;i<response.names().length();i++){
+                        System.err.println("name " + i + " = " + response.names().get(i));
+                        System.err.println(response.getInt("NumRows"));
                     }
 
                 } catch (JSONException e) {
+                    e.printStackTrace();
                     ErrorActivity.message = "JSONException: " + e.getMessage();
                     ErrorActivity.errorClass = LoginActivity.class;
                     startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
@@ -148,16 +148,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
             }
         }) {
-            /*@Override
+            @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("UserID", "" + UserID);
-                hashMap.put("Date", fdate);
+                hashMap.put("UserId", "" + UserID);
+                hashMap.put("Date", testDate);
                 return hashMap;
-            }*/
+            }
         };
         RequestSingleton.getInstance(this).addToRequestQueue(request);
 
+    }
+    public void RetrieveTaskInfo(int TaskID){
+        final int TID = TaskID;
+        Map<String, String> map = new HashMap<>();
+        map.put("UserId", "" + UserID);
+        map.put("taskId", "" + TaskID);;
+        JSONObject obj = new JSONObject(map);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL2, obj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.get("Title"));
+                    System.err.println("Title = " + response.getString("Title"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    ErrorActivity.message = "JSONException: " + e.getMessage();
+                    ErrorActivity.errorClass = LoginActivity.class;
+                    startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                ErrorActivity.message = error.getMessage();
+                ErrorActivity.errorClass = LoginActivity.class;
+                startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("UserId", "" + UserID);
+                hashMap.put("taskId", "" + TID);
+                return hashMap;
+            }
+        };
+        RequestSingleton.getInstance(this).addToRequestQueue(request);
     }
 }
 
