@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,6 +22,7 @@ import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -38,11 +41,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private static final String URL = "http://m4rks.site/LAMPAPI/RetrieveTaskID.php";
     private static final String URL2 = "http://m4rks.site/LAMPAPI/RetrieveTaskInfo.php";
+    private Button addTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addTask = (Button) findViewById(R.id.add_task_button);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -50,13 +56,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout, toolbar,
-                R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settingFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_account);
         }
@@ -74,16 +80,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
-
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -103,32 +106,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public String FDate(int daysToAdd){
+    public String FDate(int daysToAdd) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         final SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
         cal.add(Calendar.DATE, daysToAdd);
         return formatedDate.format(cal.getTime());
     }
-    public String FDate(){
+
+    public String FDate() {
         Date now = new Date();
         final SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
         return formatedDate.format(now);
     }
+
     //in progress connects and returns data from server
     public void GrabTasksIDs(String fDate) throws JSONException {
         final String testDate = fDate;
         Map<String, String> map = new HashMap<>();
         map.put("UserId", "" + UserID);
-        map.put("Date", fDate);;
+        map.put("Date", fDate);
+        ;
         JSONObject obj = new JSONObject(map);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, obj, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                        System.out.println(response.get("TaskID").toString());
+                    System.out.println(response.get("TaskID").toString());
                     System.err.println("Get taskID = " + response.getString("TaskID") + " UserID = " + UserID + " date = " + testDate);
-                    for(int i = 0;i<response.names().length();i++){
+                    for (int i = 0; i < response.names().length(); i++) {
                         System.err.println("name " + i + " = " + response.names().get(i));
                         System.err.println(response.getInt("NumRows"));
                     }
@@ -159,11 +165,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         RequestSingleton.getInstance(this).addToRequestQueue(request);
 
     }
-    public void RetrieveTaskInfo(int TaskID){
+
+    public void RetrieveTaskInfo(int TaskID) {
         final int TID = TaskID;
         Map<String, String> map = new HashMap<>();
         map.put("UserId", "" + UserID);
-        map.put("taskId", "" + TaskID);;
+        map.put("taskId", "" + TaskID);
+        ;
         JSONObject obj = new JSONObject(map);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL2, obj, new Response.Listener<JSONObject>() {
             @Override

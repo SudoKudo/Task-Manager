@@ -20,7 +20,7 @@ import java.util.Map;
 public class add_task extends AppCompatActivity {
 
     private EditText task_name, task_description, task_priority, task_duration;
-    private Button addButton;
+    private Button addButton, backButton;
 
     private static final String URL = "http://m4rks.site/LAMPAPI/addTask.php";
 
@@ -34,6 +34,14 @@ public class add_task extends AppCompatActivity {
         task_description = findViewById(R.id.task_description);
         task_priority = findViewById(R.id.task_priority);
         task_duration = findViewById(R.id.task_duration);
+
+        // What happens when the back button is clicked
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(add_task.this, MainActivity.class));
+            }
+        });
 
         // What happens when add button is clicked
         addButton.setOnClickListener(new View.OnClickListener() {
