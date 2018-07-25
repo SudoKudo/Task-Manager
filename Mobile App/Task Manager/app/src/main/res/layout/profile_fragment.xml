@@ -4,38 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E3F2FD">
 
     <TextView
-        android:id="@+id/tv_firstname"
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="356dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="FirstName"
+        android:text="FullName"
+        android:textColor="#FF0000"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.331" />
-
-    <TextView
-        android:id="@+id/tv_lastname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="LastName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_firstname"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.468" />
 
     <TextView
         android:id="@+id/tv_username"
@@ -46,11 +33,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="UserName"
+        android:textSize="25sp"
+        android:textColor="#008000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_lastname"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        app:layout_constraintVertical_bias="0.028" />
 
     <TextView
         android:id="@+id/tv_email"
@@ -61,9 +51,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Email"
+        android:textSize="20sp"
+        android:textColor="#0000FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_username"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.041" />
 </android.support.constraint.ConstraintLayout>

@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="#E3F2FD">
 
     <TextView
         android:id="@+id/WCTitle"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:text="Welcome to Task Manager"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#FF1744"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -29,6 +30,7 @@
         android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Username"
+        android:textColor="#283593"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +49,7 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Password"
+        android:textColor="#283593"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +67,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Login"
+        android:textColor="#0D47A1"
+        android:background="#00FFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

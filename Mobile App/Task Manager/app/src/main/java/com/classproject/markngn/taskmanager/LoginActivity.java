@@ -32,8 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String URL = "http://m4rks.site/LAMPAPI/Applogin.php";
     public static int UserID;
-
-
+    public static String firstname, lastname, uname, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +81,13 @@ public class LoginActivity extends AppCompatActivity {
                     String userName = response.getString("UserName");
                     if(!userName.isEmpty()) {
                         UserID = response.getInt("UserID");
-                        System.err.println("UserID = " + UserID);
+                        firstname = response.getString("FirstName");
+                        lastname = response.getString("LastName");
+                        uname = response.getString("UserName");
+                        email = response.getString("Email");
+
+
+                        System.err.println("UserID = " + email);
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }else{
                         ErrorActivity.message = "Wrong Username or Password";

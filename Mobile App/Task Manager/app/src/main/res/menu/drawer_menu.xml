@@ -7,11 +7,11 @@
             <item
                 android:id="@+id/nav_account"
                 android:icon="@drawable/ic_account"
-                android:title="Account" />
+                android:title="Profile" />
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_settings"
-                android:title="Setting" />
+                android:title="Manage" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_logout"
