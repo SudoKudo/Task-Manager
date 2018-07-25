@@ -4,81 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".add_task">
+    tools:context=".TaskView">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="503dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <TextView
-            android:id="@+id/add_task_title"
+            android:id="@+id/task_view_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="@string/add_task"
-            android:layout_marginTop="8dp"
-            android:textAlignment="center"
-            android:textSize="12pt"
+            android:layout_weight="16"
+            android:text="@string/view_name"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/task_name"
+        <TextView
+            android:id="@+id/task_view_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/name"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/task_description"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:ems="10"
-            android:hint="@string/task_description"
-            android:inputType="textMultiLine" />
+            android:layout_weight="70"
+            android:text="@string/view_description" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="7"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/task_duration"
+            <TextView
+                android:id="@+id/textView4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="@string/task_duration"
-                android:inputType="number" />
+                android:layout_weight="3"
+                android:text="@string/duration" />
 
-            <EditText
-                android:id="@+id/task_priority"
+            <TextView
+                android:id="@+id/task_view_duration"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:ems="10"
-                android:hint="@string/task_priority"
-                android:inputType="number" />
+                android:textAlignment="center" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/add_button"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="@string/add_button" />
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="@string/view_priority"
+                tools:text="Priority" />
+
+            <TextView
+                android:id="@+id/task_view_priority"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textAlignment="center" />
+        </LinearLayout>
+
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
