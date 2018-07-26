@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 break;
-            case R.id.nav_manage:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainFragment()).commit();
+            case R.id.nav_setting:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingFragment()).commit();
                 break;
         }
 

@@ -67,18 +67,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="#00FFFF"
+        android:background="#0091EA"
         android:text="Login"
-<<<<<<< HEAD
-        android:textColor="#0D47A1"
-=======
-        android:textColor="#000000"
-        android:background="#C0C0C0"
->>>>>>> 1f8205f524fed0bf5fa21cda2a2a78c462cad4ab
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/passReset" />
 
     <TextView
         android:id="@+id/register"
@@ -95,5 +89,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginBT"
         app:layout_constraintVertical_bias="0.178" />
+
+    <TextView
+        android:id="@+id/passReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Forget Password?"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="0.126" />
 
 </android.support.constraint.ConstraintLayout>
