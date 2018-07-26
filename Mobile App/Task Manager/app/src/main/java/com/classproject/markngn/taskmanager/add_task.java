@@ -14,26 +14,27 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import static com.classproject.markngn.taskmanager.LoginActivity.UserID;
 
 public class add_task extends AppCompatActivity {
 
     private EditText task_name, task_description, task_priority, task_duration;
     private Button addButton, backButton;
 
-    private static final String URL = "http://m4rks.site/LAMPAPI/addTask.php";
+    private static final String URL = "http://m4rks.site/LAMPAPI/AddTask.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        // Initiate fields
-        task_name = findViewById(R.id.task_name);
-        task_description = findViewById(R.id.task_description);
-        task_priority = findViewById(R.id.task_priority);
-        task_duration = findViewById(R.id.task_duration);
+        addButton = (Button)findViewById(R.id.add_button);
+        backButton = (Button)findViewById(R.id.back_button);
 
         // What happens when the back button is clicked
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -47,26 +48,44 @@ public class add_task extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Pull text from fields
-                String taskName = task_name.getText().toString().trim();
-                String taskDescription = task_description.getText().toString().trim();
-                String taskPriority = task_priority.getText().toString().trim();
-                String taskDuration = task_duration.getText().toString().trim();
-
-                // Run the add Task function
                 addTask();
             }
         }); // Add button click listener end
     } // onCreate end
 
+    public String FDate() {
+        Date now = new Date();
+        final SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
+        return formatedDate.format(now);
+    }
+
     // Add the task via the API to the database
     private void addTask() {
+
+        // Initiate fields
+        task_name = findViewById(R.id.task_name);
+        task_description = findViewById(R.id.task_description);
+        task_priority = findViewById(R.id.task_priority);
+        task_duration = findViewById(R.id.task_duration);
+
+        // Pull text from fields
+        String taskName = task_name.getText().toString().trim();
+        String taskDescription = task_description.getText().toString().trim();
+        String taskPriority = task_priority.getText().toString().trim();
+        String taskDuration = task_duration.getText().toString().trim();
+        String currentDate = FDate();
+
         // Create JSON string
         Map<String, String> map = new HashMap<>();
-        map.put("Title", task_name.getText().toString().trim());
-        map.put("Description", task_description.getText().toString().trim());
-        map.put("Duration", task_duration.getText().toString().trim());
-        map.put("Priority", task_priority.getText().toString().trim());
+        map.put("userID", ""+UserID);
+        map.put("title", taskName);
+        map.put("description", taskDescription);
+        map.put("dateCreated", currentDate);
+        map.put("duration", taskDuration);
+        map.put("startTime", currentDate);
+        map.put("priority", taskPriority);
+        map.put("date", currentDate);
+        map.put("completion", "False");
 
         // Create JSON object and send to API
         JSONObject obj = new JSONObject(map);

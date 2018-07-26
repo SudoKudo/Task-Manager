@@ -41,14 +41,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private static final String URL = "http://m4rks.site/LAMPAPI/RetrieveTaskID.php";
     private static final String URL2 = "http://m4rks.site/LAMPAPI/RetrieveTaskInfo.php";
-    private Button addTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        addTask = (Button) findViewById(R.id.add_task_button);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
