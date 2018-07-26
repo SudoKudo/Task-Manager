@@ -117,7 +117,7 @@ public class addFragment extends Fragment {
                 //startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
             }
         });
-
+        
         //need to find new add method
         //RequestSingleton.getInstance(this).addToRequestQueue(request);
     } // addTask end

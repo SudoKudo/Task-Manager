@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Improve your life!"
-        android:textColor="#000000"
+        android:textColor="#0091EA"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
