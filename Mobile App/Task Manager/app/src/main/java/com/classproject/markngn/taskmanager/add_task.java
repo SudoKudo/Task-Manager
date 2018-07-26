@@ -15,10 +15,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import static com.classproject.markngn.taskmanager.LoginActivity.UserID;
 
 public class add_task extends AppCompatActivity {
@@ -33,8 +33,8 @@ public class add_task extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        addButton = (Button)findViewById(R.id.add_button);
-        backButton = (Button)findViewById(R.id.back_button);
+        addButton = (Button) findViewById(R.id.add_button);
+        backButton = (Button) findViewById(R.id.back_button);
 
         // What happens when the back button is clicked
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +77,7 @@ public class add_task extends AppCompatActivity {
 
         // Create JSON string
         Map<String, String> map = new HashMap<>();
-        map.put("userID", ""+UserID);
+        map.put("userID", "" + UserID);
         map.put("title", taskName);
         map.put("description", taskDescription);
         map.put("dateCreated", currentDate);
