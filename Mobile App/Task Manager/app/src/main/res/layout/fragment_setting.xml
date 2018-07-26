@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/bt_changePass"
+        android:id="@+id/tv_changePass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
