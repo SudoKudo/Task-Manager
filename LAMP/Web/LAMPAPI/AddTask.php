@@ -19,8 +19,8 @@
 	else
 	{
         //User prepare statement to protect against sql injection attacks
-		$stmt = $conn->prepare("INSERT INTO Tasks (UserID, Title, Description, Duration, StartTime, Priority, Date, IsComplete) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssssss", $userID, $Title, $description, $duration, $startTime, $priority, $date, $completion);
+		$stmt = $conn->prepare("INSERT INTO Tasks (UserID, Title, Description, Duration, StartTime, Priority, Date, IsComplete) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssss", $userID, $Title, $description, $duration, $startTime, $priority, $date, $completion);
                 
         $stmt->execute();
                 
