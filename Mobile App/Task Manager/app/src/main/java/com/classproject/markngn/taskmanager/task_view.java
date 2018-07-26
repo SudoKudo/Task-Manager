@@ -25,7 +25,6 @@ import static com.classproject.markngn.taskmanager.LoginActivity.UserID;
 public class task_view extends AppCompatActivity {
 
     private TextView task_name, task_description, task_priority, task_duration;
-    private Button backButton;
     private static final String URL = "http://m4rks.site/LAMPAPI/RetrieveTaskID.php";
 
     @Override
@@ -80,12 +79,6 @@ public class task_view extends AppCompatActivity {
         };
         RequestSingleton.getInstance(this).addToRequestQueue(request);
 
-        // What happens when the back button is clicked
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(task_view.this, MainActivity.class));
-            }
-        });
+
     }
 }

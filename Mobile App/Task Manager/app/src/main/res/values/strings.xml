@@ -22,4 +22,7 @@
     <string name="view_priority_value">TextView</string>
     <string name="add_button">Add</string>
     <string name="back_button">Back</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

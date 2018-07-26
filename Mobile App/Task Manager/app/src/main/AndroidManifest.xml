@@ -40,8 +40,8 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".add_task" />
-        <activity android:name=".task_view"></activity>
+        <activity android:name=".task_view" />
+        <activity android:name=".PassResetActivity"></activity>
     </application>
 
 </manifest>

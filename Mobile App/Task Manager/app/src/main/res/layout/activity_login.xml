@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:background="#E3F2FD">
+    android:background="#ADD8E6">
 
     <TextView
         android:id="@+id/WCTitle"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
-        android:text="Welcome to Task Manager"
-        android:textColor="#FF1744"
+        android:text="TASK MANAGER"
+        android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Username"
-        android:textColor="#283593"
+        android:textColor="#000000"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Password"
-        android:textColor="#283593"
+        android:textColor="#000000"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,19 +60,19 @@
 
     <Button
         android:id="@+id/LoginBT"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="172dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="#0091EA"
         android:text="Login"
-        android:textColor="#0D47A1"
-        android:background="#00FFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/passReset" />
 
     <TextView
         android:id="@+id/register"
@@ -83,11 +83,27 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Don't have an account yet?"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginBT"
         app:layout_constraintVertical_bias="0.178" />
+
+    <TextView
+        android:id="@+id/passReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Forget Password?"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="0.126" />
 
 </android.support.constraint.ConstraintLayout>

@@ -11,8 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settingFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_account);
         }
 
@@ -95,8 +93,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 break;
             case R.id.nav_setting:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settingFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingFragment()).commit();
                 break;
+            case R.id.nav_main:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainFragment()).commit();
+                break;
+
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
