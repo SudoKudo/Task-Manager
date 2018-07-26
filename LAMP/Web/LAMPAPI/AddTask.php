@@ -10,7 +10,6 @@
     $priority = $inData["priority"];
 	$date = $inData["date"];
 	$completion = $inData["completion"];
-
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
 	
 	if ($conn->connect_error) 
@@ -20,8 +19,8 @@
 	else
 	{
         //User prepare statement to protect against sql injection attacks
-		$stmt = $conn->prepare("INSERT INTO Tasks (UserID, Title, Description, DateCreated, Duration, StartTime, Priority, Date, IsComplete) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssssss", $userID, $Title, $description, $duration, $startTime, $priority, $date, $completion);
+		$stmt = $conn->prepare("INSERT INTO Tasks (UserID, Title, Description, Duration, StartTime, Priority, Date, IsComplete) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssss", $userID, $Title, $description, $duration, $startTime, $priority, $date, $completion);
                 
         $stmt->execute();
                 

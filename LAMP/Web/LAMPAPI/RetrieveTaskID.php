@@ -29,7 +29,7 @@
 
 	$taskId = "";
 	$numRows = 0;
-
+        
     $tasks = array();
 
 	$date = $inData["Date"];
@@ -54,7 +54,7 @@
 
 				array_push($tasks, $task);
 
-				$numRows++;
+				$numRows++;   				
                         }
 
                         $temp = new taskStruct();

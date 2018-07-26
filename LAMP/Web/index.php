@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="css/login-page.css">
 	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel= 'stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="icon" href="images/task_manager_icon.png">
 
 	<!-- Scripts -->  
         <script src="js/code.js"></script>
@@ -21,7 +22,7 @@
 		font-size: 150%;
 		font-family: Helvetica, sans-serif;
 		background-image: url('css/simple.jpg');
-		background-size: cover;
+		background-size: auto;
 		background-repeat: no-repeat;
 	}
 	.jumbotron
@@ -69,7 +70,10 @@
 					  	<span style="padding-right: 6px;" class= "glyphicon glyphicon-log-in"></span>Login</button>
 
 					  <br><br>
-					  <button type="button" id= "createNew" class = "btn btn-link btn-lg" data-toggle="modal" data-target="#createAccountModal">Create New Account</button><button type="button" id= "reset" class = "btn btn-link btn-lg" data-toggle="modal" data-target="#forgotPassword">Forgot password?</button> 
+					  <button type="button" id= "createNew" class = "btn btn-link btn-lg" data-toggle="modal" data-target="#createAccountModal" onclick='clearCreateAcctModal()'>Create New Account</button>
+                                          <!-- Password reset feature removed from website
+                                          <button type="button" id= "reset" class = "btn btn-link btn-lg" data-toggle="modal" data-target="#forgotPassword">Forgot password?</button> 
+                                          --> 
 
 					</div>
 				</center>
@@ -90,11 +94,11 @@
 			        <!-- Modal body content-->
 			        <div class="modal-body mx-3">
 		                <div class="column" id= "firstName">
-		                    <input type="text" class="form-control" id="newFirstName" placeholder= "*First Name">
+		                    <input type="text" class="form-control" id="newFirstName" placeholder= "First Name">
 		                </div>
 
 		                <div class="column" id="lastName">
-		                	<input type="text" class="form-control" id="newLastName" placeholder= "*Last Name">
+		                	<input type="text" class="form-control" id="newLastName" placeholder= "Last Name">
 		                </div>
 
 		                <div class="form-group">
@@ -129,7 +133,7 @@
 			</div>
 			<!-- End of Create New Account Modal -->
 
-
+            <!-- Password reset feature removed from website -->
 			<!-- Forgot Password Modal -->
 			<div class="container">
 			  <!-- Modal -->

@@ -3,7 +3,7 @@ body
 	font-size: 150%;
 	font-family: Helvetica, sans-serif;
 	background-image: url('simple.jpg');
-	background-size: cover;
+	background-size: auto;
 	background-repeat: no-repeat;
 }
 #pageTitle

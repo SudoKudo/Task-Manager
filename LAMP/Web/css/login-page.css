@@ -32,7 +32,7 @@
 	border-style:solid;
 	color: white;
 }
-form input::-webkit-input-placeholder
+#loginForm input::-webkit-input-placeholder
 {
  	color:white !important;
  	font-size: 1.1em;
