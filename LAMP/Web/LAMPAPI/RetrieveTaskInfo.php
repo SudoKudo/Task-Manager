@@ -1,12 +1,13 @@
 <?php
 
-	$inData = getRequestInfo();
+    $inData = getRequestInfo();
 
-    $title = ;
-    $description = ;
-    $duration = ;
-    $date = ;
-    $isComplete = ;
+    $title = "";
+    $description = "";
+    $duration = "";
+    $date = "";
+    $isComplete = "";
+    $startTime = "";
 
 	$conn = new mysqli("fdb21.awardspace.net", "2738589_webapp", "Webdev999", "2738589_webapp");
 	if ($conn->connect_error)
@@ -15,16 +16,19 @@
 	}
 	else
 	{
-		$sql = "SELECT Title, Description, Duration, Date, IsComplete FROM UserInfo where UserID='" . $inData["UserId"] . "' and TaskID='" . $inData["taskId"] . "'";
+		$sql = "SELECT Title, Description, Duration, Date, IsComplete, StartTime FROM Tasks where UserID='" . $inData["UserId"] . "' and TaskID='" . $inData["taskId"] . "'";
+                
 		$result = $conn->query($sql);
+
 		if ($result->num_rows > 0)
 		{
 			$row = $result->fetch_assoc();
-            $title = $row["Title"];;
-            $description = $row["Description"];;
-            $duration = $row["Duration"];;
-            $date = $row["Date"];;
-            $isComplete = $row["IsComplete"];;
+                        $title = $row["Title"];
+                        $description = $row["Description"];
+                        $duration = $row["Duration"];
+                        $date = $row["Date"];
+                        $isComplete = $row["IsComplete"];
+                        $startTime = $row["StartTime"];
 
 		}
 		else
@@ -34,7 +38,7 @@
 		$conn->close();
 	}
 
-	returnWithInfo($title, $description, $duration, $date, $isComplete);
+	returnWithInfo($title, $description, $duration, $date, $isComplete, $startTime);
 
 	function getRequestInfo()
 	{
@@ -49,13 +53,14 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"Title":"","Description":"","Duration":"","Date":"","IsComplete":"","error":"' . $err . '"}';
+		$retValue = '{"Title":"","Description":"","Duration":"","Date":"","IsComplete":"", "StartTime":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo($title, $description, $duration, $date, $isComplete)
+	function returnWithInfo($title, $description, $duration, $date, $isComplete, $startTime)
 	{
-		$retValue = '{"Title":' . $title . ',"Description":"' . $description . '","Duration":"' . $duration . '","Date":"' . $date . '","IsComplete":"' . $isComplete . '","error":""}';
+		$retValue = '{"Title":"' . $title . '","Description":"' . $description . '","Duration":"' . $duration . '","Date":"' . $date . '","IsComplete":"' . $isComplete . '","StartTime":"' . $startTime . '","error":""}';
+                
 		sendResultInfoAsJson( $retValue );
 	}
 
