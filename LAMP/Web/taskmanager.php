@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel= 'stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="icon" href="images/task_manager_icon.png">
 
 	<!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -23,7 +24,7 @@
 	<title>Task Manager</title>
 
 </head>
-	<body onload='displayInitial()'>
+	<body onload='displayInitial()' id="daysContainer">
 			<div id="menubar">
 			    <ul>		
 	    			<li id="pageTitle" title="View-only website">Task Manager [Viewer]</li>
@@ -54,8 +55,8 @@
 
 				      <!--Edit the innerHTML of this ul to add and remove tasks in block 1 -->
 				      <ul id="tasks1" class="list-group list-group-flush">
-					    <a data-toggle="modal" data-target="#viewTaskModal"><li class="list-group-item">Jury Duty</li></a>
-					  </ul>
+					    
+				      </ul>
 
 				  </div>
 
@@ -81,10 +82,9 @@
 
 				      <!--Edit the innerHTML of this ul to add and remove tasks in block 1 -->
 				      <ul id="tasks2" class="list-group list-group-flush">
-					    <a data-toggle="modal" data-target="#viewTaskModal"><li class="list-group-item">COP 4331</li></a>
-					    <a data-toggle="modal" data-target="#viewTaskModal"><li class="list-group-item">Taco Tuesday!</li></a>
 					    
-					  </ul>
+					    
+				      </ul>
 
 				  </div>
 
@@ -110,8 +110,8 @@
 
 				      <!--Edit the innerHTML of this ul to add and remove tasks in block 1 -->
 				      <ul id="tasks3" class="list-group list-group-flush">
-					  	<center><h5>No tasks</h5></center>
-					  </ul>
+					  	
+				      </ul>
 
 				  </div>
 
@@ -136,10 +136,9 @@
 			      
 
 				      <!--Edit the innerHTML of this ul to add and remove tasks in block 1 -->
-				      <ul id="tasks4" class="list-group list-group-flush">
-				      		<a data-toggle="modal" data-target="#viewTaskModal"><li class="list-group-item">COP 4331</li></a>
+				      <ul id="tasks4" class="list-group list-group-flush">			      		
 
-					  </ul>
+				      </ul>
 
 				  </div>
 
@@ -164,10 +163,9 @@
 			      
 
 				      <!--Edit the innerHTML of this ul to add and remove tasks in block 1 -->
-				      <ul id="tasks5" class="list-group list-group-flush">
-				      		<a data-toggle="modal" data-target="#viewTaskModal"><li class="list-group-item" >What happes if you have a really long title?</li></a>
+				      <ul id="tasks5" class="list-group list-group-flush">				      		
 
-					  </ul>
+			              </ul>
 
 				  </div>
 
@@ -198,15 +196,13 @@
 			        </div>
 			        <!-- Modal body content-->
 			        <div class="modal-body mx-3" id="detailsDisplay">
-		            	<p>Description</p>
-		            	<p>Day, date</p>
-		            	<p>Time (duration)</p>
-		            </div>
+
+		                </div>
 		            <!-- End Modal body content / Start of Modal footer content-->
 		            <div class="modal-footer d-flex justify-content-center">
 		            	<!-- Use this div to print an error to the Create New Account modal -->
 		            	<div id="viewTaskModal" style="float:left"></div>
-		                <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-edit" style="padding-right: 6px;"></span>Edit</a>
+		                <p><span style="padding-right: 6px;" class= "glyphicon glyphicon-phone"></span>Use the mobile app to add, modify, and delete tasks</p>
 		            </div>
 		            <!-- End Modal footer content-->
 			        </div>
