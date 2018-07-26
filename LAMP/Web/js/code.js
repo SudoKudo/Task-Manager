@@ -14,16 +14,16 @@ function doRegister()
 
   console.log("Register");
 
-  var firstName = document.getElementById("newFirstName").value; // Retrieve username
-  var lastName = document.getElementById("newLastName").value; // Retrieve password
+  var firstName = document.getElementById("newFirstName").value; // Retrieve first name
+  var lastName = document.getElementById("newLastName").value; // Retrieve last name
   var uName = document.getElementById("newUsername").value; // Retrieve username
   var pWord = document.getElementById("newPassword").value; // Retrieve password
-  var cPass = document.getElementById("cPass").value;
-  var email = document.getElementById("email").value;
+  var cPass = document.getElementById("cPass").value; // Confirm password
+  var email = document.getElementById("email").value; // Retrieve email
 
   var invalidInput = "";
   
-     
+    //No blank username, password, or email; password and confirm password must match
     if(!email.replace(/\s/g, '').length)
     {
            invalidInput = "Please enter an email address";
@@ -57,20 +57,30 @@ function doRegister()
 
           console.log(jsonPayload);
 
-          var xhr = new XMLHttpRequest();
-                  xhr.open("POST", url, true);
-          xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
           try
           {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+          
+            xhr.send(jsonPayload);
             xhr.onreadystatechange = function()
-            {
+            {              
               if (this.readyState == 4 && this.status == 200)
               {
-                clearCreateAcctModal();
-                document.getElementById("accountCreationError").innerHTML = "User has been added!";       
+                var jsonObject = JSON.parse( xhr.responseText );
+                if(jsonObject.error != "")
+                {
+                   document.getElementById("accountCreationError").innerHTML = "Username taken";                
+                }
+                else 
+                {
+                  clearCreateAcctModal();
+                  document.getElementById("accountCreationError").innerHTML = "User has been added!"; 
+                }
               }
             };
-            xhr.send(jsonPayload);
+            //xhr.send(jsonPayload);
           }
           catch(err)
           {
@@ -229,7 +239,7 @@ function displayDate(objToday, position)
 {
   weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
   dayOfWeek = weekday[objToday.getDay()];
-  dayOfMonth = ( objToday.getDate() < 10) ? '0' + objToday.getDate() : objToday.getDate();
+  dayOfMonth = objToday.getDate();
   months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
   curMonth = months[objToday.getMonth()];
   curYear = objToday.getFullYear();
@@ -461,11 +471,14 @@ $(document).on('click','a[data-target="#viewTaskModal"]', function(e)
        date = modalDate(date);
        duration = convertDuration(duration);
        
+       //Address completeness 
+       isComplete = convertIsComplete(isComplete); 
+       
        
        //Create modal innerHTML
        var taskNameInnerHTML = "<h2>" + taskName + "</h2>";
-       var innerHTML = "<h4>" + desc + "</h4>" + "<h5>Date: " + date + "</h5>" + "<h5>Time: " + startTime + " (" + duration + ")</h5>";
-       
+       var innerHTML = "<h4>" + desc + "</h4>" + "<h5>Date: " + date + "</h5>" + "<h5>Start time: " + startTime + " (" + duration + ")</h5>" + isComplete;
+
        //Populate modal
        document.getElementById("taskName").innerHTML = taskNameInnerHTML;
        document.getElementById("detailsDisplay").innerHTML = innerHTML;
@@ -501,18 +514,25 @@ function convertTime(time)
    {
       hours = time.substring(0,1);
       minutes = time.substring(1);
+   } 
+   else
+   {
+      hours = 0;
+      minutes = time;
    }
-   
+
 
    var timeValue;
 
    if (hours > 0 && hours <= 12)
    {
      timeValue= "" + hours;
-   } else if (hours > 12)
+   } 
+   else if (hours > 12)
    {
      timeValue= "" + (hours - 12);
-   } else if (hours == 0)
+   } 
+   else if (hours == 0)
    {
      timeValue= "12";
    }
@@ -574,6 +594,19 @@ function convertDuration(dur)
     
   return returnString;
   
+}
+
+//Convert completeness boolean into display format
+function convertIsComplete(bool)
+{
+   var returnVal;
+   
+   if(bool == 1)
+     returnVal = "<h5><span style=\"padding-right: 6px;\" class= \"glyphicon glyphicon-check\"></span>Completed</h5>";
+   else
+     returnVal = "<h5><span style=\"padding-right: 6px;\" class= \"glyphicon glyphicon-unchecked\"></span>Not complete</h5>";
+     
+   return returnVal;
 }
 
 // Begin doLogout function
