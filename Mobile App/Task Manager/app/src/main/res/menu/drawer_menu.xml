@@ -2,7 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Take control of your workday">
+    <item android:title="Take control of your day">
         <menu>
             <item
                 android:id="@+id/nav_account"
@@ -11,7 +11,7 @@
             <item
                 android:id="@+id/nav_manage"
                 android:icon="@drawable/ic_settings"
-                android:title="Manage" />
+                android:title="Settings" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_logout"
